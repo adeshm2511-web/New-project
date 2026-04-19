@@ -1,0 +1,10 @@
+{
+  "name": "InkShift",
+  "short_name": "InkShift",
+  "description": "Prompt-based editor for assignment sheets, experiment records, and photo documents.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4ecdd",
+  "theme_color": "#f6efe3",
+  "icons": []
+}
