@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Prompt-based editor for assignments, experiments, and photos. Upload an image, describe the changes, and export the updated result."
+      content="Realistic document editor for changing name, class, roll number, title, and similar fields in uploaded screenshots, photos, and PDFs."
     />
-    <meta name="theme-color" content="#f6efe3" />
-    <title>InkShift | Prompt Document Editor</title>
+    <meta name="theme-color" content="#efe8dc" />
+    <title>InkShift Realistic Editor</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="manifest" href="./manifest.webmanifest" />
@@ -25,115 +25,136 @@
           <span class="brand-mark">IS</span>
           <span>
             <strong>InkShift</strong>
-            <small>Prompt document editor</small>
+            <small>Realistic field replacement</small>
           </span>
         </a>
-        <a class="button button-ghost" href="#editor">Open Editor</a>
+        <a class="button button-ghost" href="#editor">Open workspace</a>
       </header>
 
       <main id="home">
         <section class="hero">
           <div class="hero-copy">
-            <p class="eyebrow">Assignments, experiments, and photo details</p>
-            <h1>Edit document text with one prompt.</h1>
+            <p class="eyebrow">Screenshot and document editing</p>
+            <h1>Change only the fields, keep the document looking real.</h1>
             <p class="hero-text">
-              Upload a school or college document image, write a prompt like
-              “change name to Riya, class to 12-B, roll no to 17”, and export
-              the updated image with matched color and sizing as closely as
-              possible.
+              Upload a screenshot, photo, or PDF page, write a prompt like
+              “change name to Adesh Mishra, class to ECS A, roll no to 55”, and
+              then fine-tune the exact detected lines before exporting the final
+              image.
             </p>
             <div class="hero-actions">
-              <a class="button button-primary" href="#editor">Try the editor</a>
-              <a class="button button-secondary" href="#how-it-works">How it works</a>
+              <a class="button button-primary" href="#editor">Start editing</a>
+              <a class="button button-secondary" href="#guide">See workflow</a>
             </div>
             <ul class="hero-points">
-              <li>OCR reads the uploaded document in the browser</li>
-              <li>Prompt parser finds fields like name, class, roll no, title</li>
-              <li>Canvas redraw keeps the replacement aligned to the original area</li>
+              <li>Works with images and the first page of PDFs</li>
+              <li>Shows detected text lines so you can edit the right one</li>
+              <li>Replaces only the value area for a more realistic result</li>
             </ul>
           </div>
 
           <div class="hero-card">
-            <div class="sample-sheet">
-              <div class="sample-line">
-                <span>Name:</span>
-                <strong>Priya Sharma</strong>
+            <div class="sample-screen">
+              <div class="sample-toolbar">
+                <span></span>
+                <span></span>
+                <span></span>
               </div>
-              <div class="sample-line">
-                <span>Class:</span>
-                <strong>10-A</strong>
+              <div class="sample-code">
+                <p><strong>Name:</strong> Jha Nidhi Mukesh</p>
+                <p><strong>Class:</strong> FE ECS A</p>
+                <p><strong>Roll no:</strong> 30</p>
               </div>
-              <div class="sample-line">
-                <span>Roll No:</span>
-                <strong>23</strong>
+              <div class="sample-arrow">Prompt</div>
+              <div class="sample-code sample-code-out">
+                <p><strong>Name:</strong> Adesh Mishra</p>
+                <p><strong>Class:</strong> ECS A</p>
+                <p><strong>Roll no:</strong> 55</p>
               </div>
-              <div class="sample-tag">Prompt</div>
-              <p class="sample-prompt">
-                change name to Aarav Mehta and roll no to 09 and experiment name
-                to refraction through prism
-              </p>
             </div>
           </div>
         </section>
 
         <section class="workspace" id="editor">
-          <div class="panel panel-form">
+          <div class="panel panel-left">
             <div class="panel-heading">
-              <p class="eyebrow">Editor</p>
-              <h2>Upload, prompt, export</h2>
+              <p class="eyebrow">Workspace</p>
+              <h2>Upload, detect, assign, export</h2>
             </div>
 
-            <label class="upload-field" for="imageInput">
-              <input id="imageInput" type="file" accept="image/*" />
-              <span>Choose document image</span>
-              <small>PNG, JPG, WEBP supported</small>
+            <label class="upload-field" for="fileInput">
+              <input id="fileInput" type="file" accept="image/*,.pdf" />
+              <span>Choose screenshot, photo, or PDF</span>
+              <small>PDF support uses the first page only</small>
             </label>
 
-            <label class="field-label" for="promptInput">Editing prompt</label>
+            <label class="field-label" for="promptInput">Prompt</label>
             <textarea
               id="promptInput"
-              rows="7"
-              placeholder="Example: change assignment name to Physics Homework 4, class to 11-C, roll no to 12, and name to Kavya Singh"
+              rows="5"
+              placeholder="Example: change name to Adesh Mishra, class to ECS A, roll no to 55"
             ></textarea>
 
+            <div class="stack">
+              <label class="field-label" for="fontPreset">Text style preset</label>
+              <select id="fontPreset">
+                <option value="auto">Auto match</option>
+                <option value="mono">Monospace / code window</option>
+                <option value="serif">Serif / printed page</option>
+                <option value="sans">Sans / digital UI</option>
+              </select>
+            </div>
+
             <div class="button-row">
-              <button class="button button-primary" id="runButton" type="button">
-                Process image
+              <button class="button button-primary" id="scanButton" type="button">
+                Detect text
+              </button>
+              <button class="button button-secondary" id="renderButton" type="button" disabled>
+                Render result
               </button>
               <button class="button button-secondary" id="downloadButton" type="button" disabled>
-                Download result
+                Download PNG
               </button>
             </div>
 
             <div class="status-card" id="statusCard" aria-live="polite">
-              Upload an image and add a prompt to begin.
+              Upload a file, then click Detect text.
             </div>
 
-            <div class="detected-card">
-              <div class="detected-header">
-                <h3>Detected and planned changes</h3>
-                <small id="changeCount">0 changes</small>
+            <section class="editor-block">
+              <div class="section-head">
+                <h3>Prompt changes</h3>
+                <small id="promptCount">0 parsed</small>
               </div>
-              <div id="changeList" class="change-list"></div>
-            </div>
+              <div id="promptChanges" class="mini-list"></div>
+            </section>
+
+            <section class="editor-block">
+              <div class="section-head">
+                <h3>Detected lines</h3>
+                <small id="lineCount">0 lines</small>
+              </div>
+              <div id="lineEditor" class="line-editor"></div>
+            </section>
           </div>
 
-          <div class="panel panel-preview">
+          <div class="panel panel-right">
             <div class="preview-header">
               <div>
                 <p class="eyebrow">Preview</p>
-                <h2>Before and after</h2>
+                <h2>Original and edited output</h2>
               </div>
               <label class="toggle">
-                <input id="comparisonToggle" type="checkbox" />
+                <input id="showOriginal" type="checkbox" />
                 <span>Show original</span>
               </label>
             </div>
 
-            <div class="preview-stage">
-              <img id="previewImage" alt="Uploaded or edited document preview" />
+            <div class="preview-stage" id="previewStage">
+              <img id="previewImage" alt="Document preview" hidden />
+              <div class="overlay-layer" id="overlayLayer"></div>
               <div class="preview-placeholder" id="previewPlaceholder">
-                Your edited document preview will appear here.
+                Preview will appear here after upload.
               </div>
             </div>
 
@@ -144,37 +165,39 @@
           </div>
         </section>
 
-        <section class="how-it-works" id="how-it-works">
+        <section class="guide" id="guide">
           <article class="info-card">
             <span>1</span>
-            <h3>Upload a clear image</h3>
+            <h3>Detect first</h3>
             <p>
-              Best results come from straight, well-lit photos of assignment
-              pages, experiment sheets, certificates, or ID-style documents.
+              OCR finds the visible text lines in your screenshot or PDF page so
+              you can verify what will actually be edited.
             </p>
           </article>
           <article class="info-card">
             <span>2</span>
-            <h3>Write your change prompt</h3>
+            <h3>Assign exact lines</h3>
             <p>
-              Use natural language. Mention fields like name, class, roll no,
-              assignment name, experiment name, subject, or title.
+              If the automatic prompt match is not perfect, choose the right line
+              manually from the detected list and set its new value.
             </p>
           </article>
           <article class="info-card">
             <span>3</span>
-            <h3>Download the edited image</h3>
+            <h3>Render realistic output</h3>
             <p>
-              The app locates matching OCR lines, covers the old text, redraws
-              the new one, and lets you save the output as a PNG.
+              InkShift keeps the original screenshot layout, samples local color,
+              and redraws only the changed area for a cleaner result.
             </p>
           </article>
         </section>
       </main>
     </div>
 
-    <canvas id="editorCanvas" hidden></canvas>
+    <canvas id="sourceCanvas" hidden></canvas>
+    <canvas id="resultCanvas" hidden></canvas>
 
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <script src="./script.js"></script>
   </body>
