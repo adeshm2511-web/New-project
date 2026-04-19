@@ -1,10 +1,181 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Website</title>
-</head>
-<body>
-    <h1>Hello World 🚀</h1>
-    <p>Meri website live ho gayi!</p>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Prompt-based editor for assignments, experiments, and photos. Upload an image, describe the changes, and export the updated result."
+    />
+    <meta name="theme-color" content="#f6efe3" />
+    <title>InkShift | Prompt Document Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#home" aria-label="InkShift home">
+          <span class="brand-mark">IS</span>
+          <span>
+            <strong>InkShift</strong>
+            <small>Prompt document editor</small>
+          </span>
+        </a>
+        <a class="button button-ghost" href="#editor">Open Editor</a>
+      </header>
+
+      <main id="home">
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Assignments, experiments, and photo details</p>
+            <h1>Edit document text with one prompt.</h1>
+            <p class="hero-text">
+              Upload a school or college document image, write a prompt like
+              “change name to Riya, class to 12-B, roll no to 17”, and export
+              the updated image with matched color and sizing as closely as
+              possible.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#editor">Try the editor</a>
+              <a class="button button-secondary" href="#how-it-works">How it works</a>
+            </div>
+            <ul class="hero-points">
+              <li>OCR reads the uploaded document in the browser</li>
+              <li>Prompt parser finds fields like name, class, roll no, title</li>
+              <li>Canvas redraw keeps the replacement aligned to the original area</li>
+            </ul>
+          </div>
+
+          <div class="hero-card">
+            <div class="sample-sheet">
+              <div class="sample-line">
+                <span>Name:</span>
+                <strong>Priya Sharma</strong>
+              </div>
+              <div class="sample-line">
+                <span>Class:</span>
+                <strong>10-A</strong>
+              </div>
+              <div class="sample-line">
+                <span>Roll No:</span>
+                <strong>23</strong>
+              </div>
+              <div class="sample-tag">Prompt</div>
+              <p class="sample-prompt">
+                change name to Aarav Mehta and roll no to 09 and experiment name
+                to refraction through prism
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="workspace" id="editor">
+          <div class="panel panel-form">
+            <div class="panel-heading">
+              <p class="eyebrow">Editor</p>
+              <h2>Upload, prompt, export</h2>
+            </div>
+
+            <label class="upload-field" for="imageInput">
+              <input id="imageInput" type="file" accept="image/*" />
+              <span>Choose document image</span>
+              <small>PNG, JPG, WEBP supported</small>
+            </label>
+
+            <label class="field-label" for="promptInput">Editing prompt</label>
+            <textarea
+              id="promptInput"
+              rows="7"
+              placeholder="Example: change assignment name to Physics Homework 4, class to 11-C, roll no to 12, and name to Kavya Singh"
+            ></textarea>
+
+            <div class="button-row">
+              <button class="button button-primary" id="runButton" type="button">
+                Process image
+              </button>
+              <button class="button button-secondary" id="downloadButton" type="button" disabled>
+                Download result
+              </button>
+            </div>
+
+            <div class="status-card" id="statusCard" aria-live="polite">
+              Upload an image and add a prompt to begin.
+            </div>
+
+            <div class="detected-card">
+              <div class="detected-header">
+                <h3>Detected and planned changes</h3>
+                <small id="changeCount">0 changes</small>
+              </div>
+              <div id="changeList" class="change-list"></div>
+            </div>
+          </div>
+
+          <div class="panel panel-preview">
+            <div class="preview-header">
+              <div>
+                <p class="eyebrow">Preview</p>
+                <h2>Before and after</h2>
+              </div>
+              <label class="toggle">
+                <input id="comparisonToggle" type="checkbox" />
+                <span>Show original</span>
+              </label>
+            </div>
+
+            <div class="preview-stage">
+              <img id="previewImage" alt="Uploaded or edited document preview" />
+              <div class="preview-placeholder" id="previewPlaceholder">
+                Your edited document preview will appear here.
+              </div>
+            </div>
+
+            <details class="ocr-panel">
+              <summary>Recognized text</summary>
+              <pre id="ocrText">No OCR result yet.</pre>
+            </details>
+          </div>
+        </section>
+
+        <section class="how-it-works" id="how-it-works">
+          <article class="info-card">
+            <span>1</span>
+            <h3>Upload a clear image</h3>
+            <p>
+              Best results come from straight, well-lit photos of assignment
+              pages, experiment sheets, certificates, or ID-style documents.
+            </p>
+          </article>
+          <article class="info-card">
+            <span>2</span>
+            <h3>Write your change prompt</h3>
+            <p>
+              Use natural language. Mention fields like name, class, roll no,
+              assignment name, experiment name, subject, or title.
+            </p>
+          </article>
+          <article class="info-card">
+            <span>3</span>
+            <h3>Download the edited image</h3>
+            <p>
+              The app locates matching OCR lines, covers the old text, redraws
+              the new one, and lets you save the output as a PNG.
+            </p>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <canvas id="editorCanvas" hidden></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
 </html>
